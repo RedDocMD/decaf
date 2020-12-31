@@ -82,4 +82,30 @@ class ASTBinOpExpr : public ASTExpr {
   BinOp op;
 };
 
+// A logical not expression
+class ASTNotExpr : public ASTExpr {
+ public:
+  ASTNotExpr(std::unique_ptr<ASTExpr> expr) : expr{std::move(expr)} {}
+  ~ASTNotExpr() {}
+  std::string to_string() const override {
+    return "!(" + expr->to_string() + ")";
+  }
+
+ private:
+  std::unique_ptr<ASTExpr> expr;
+};
+
+// Negated expression
+class ASTNegExpr : public ASTExpr {
+ public:
+  ASTNegExpr(std::unique_ptr<ASTExpr> expr) : expr{std::move(expr)} {}
+  ~ASTNegExpr() {}
+  std::string to_string() const override {
+    return "-(" + expr->to_string() + ")";
+  }
+
+ private:
+  std::unique_ptr<ASTExpr> expr;
+};
+
 }  // namespace ast
